@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Plus Jakarta Custom';
+  src: url('./src/assets/font/PlusJakartaSans.ttf') format('truetype');
+  font-weight: 100 900; 
+  font-style: normal;
+}
+
+:root {
+  font-family: 'Plus Jakarta Custom', sans-serif;
+  font-feature-settings: "ss03";
+  font-weight: 500;
+  scroll-behavior: smooth;
+}
+
+a {
+  color: #577BC1;
+}
