@@ -13,7 +13,10 @@
   font-family: 'Plus Jakarta Custom', sans-serif;
   font-feature-settings: "ss03";
   font-weight: 500;
-  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
 }
 
 a {
