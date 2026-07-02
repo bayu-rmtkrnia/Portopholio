@@ -29,7 +29,7 @@ export const Experience = () => {
     <section className="w-full min-h-screen flex items-center justify-center py-12 sm:py-16 px-4 sm:px-8">
 
       {/* Content area — responsif di semua ukuran layar */}
-      <div className="w-full sm:w-[92%] md:w-[80%] lg:w-[65%] xl:w-[55%] flex flex-col items-center justify-center gap-6">
+      <div className="w-full sm:w-[92%] md:w-[80%] flex flex-col items-center justify-center gap-6">
 
         <ScrollFloat
           animationDuration={1}
@@ -37,7 +37,7 @@ export const Experience = () => {
           scrollStart="top bottom-=10%" 
           scrollEnd="center center"
           stagger={0.03}
-          textClassName="font-bold text-3xl sm:text-4xl md:text-5xl text-transparent bg-clip-text bg-linear-to-r from-[#344CB7] to-[#577BC1] [font-feature-settings:'ss01']"
+          textClassName="text-transparent bg-clip-text bg-linear-to-r from-[#344CB7] to-[#577BC1] [font-feature-settings:'ss01']"
           charClass="text-transparent bg-clip-text bg-linear-to-r from-[#344CB7] to-[#577BC1] bg-fixed"
         >
           Experience

@@ -78,14 +78,14 @@ export const Projects = () => {
             scrollEnd="center center"
             stagger={0.03}
             containerClassName="w-full text-center lg:text-left"
-            textClassName="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl [font-feature-settings:'ss01'] block"
+            textClassName=" [font-feature-settings:'ss01']"
             charClass="text-transparent bg-clip-text bg-linear-to-r from-[#344CB7] to-[#577BC1] bg-fixed"
           >
             Projects
           </ScrollFloat>
           
           {/* Penjelasan — posisi tetap (fixed height) agar header tidak naik turun */}
-          <div className="w-full h-[160px] sm:h-[180px] mt-2 overflow-hidden">
+          <div className="hidden md:block w-full h-[160px] sm:h-[180px] mt-2 overflow-hidden">
             <div ref={descRef} className="flex flex-col items-center lg:items-start justify-start">
               <h3 className="font-bold text-lg sm:text-xl md:text-2xl text-[#344CB7] mb-2">
                 {PROJECT_ITEMS[activeIndex].title}
@@ -108,6 +108,17 @@ export const Projects = () => {
             onActiveIndexChange={setActiveIndex}
           />
         </div>
+
+         <div className="block md:hidden w-8/10 h-[160px] sm:h-[180px] mt-2 overflow-hidden">
+            <div ref={descRef} className="flex flex-col items-center lg:items-start justify-start">
+              <h3 className="font-bold text-lg sm:text-xl md:text-2xl text-[#344CB7] mb-2">
+                {PROJECT_ITEMS[activeIndex].title}
+              </h3>
+              <p className="font-medium text-xs sm:text-sm md:text-sm text-[#344CB7]/80 leading-relaxed text-center lg:text-left">
+                {PROJECT_ITEMS[activeIndex].description}
+              </p>
+            </div>
+          </div>
 
       </div>
     </section>
