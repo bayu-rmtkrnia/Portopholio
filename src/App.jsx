@@ -3,6 +3,7 @@ import { Landing } from './pages/Landing'
 import { About } from './pages/About'
 import { Projects } from './pages/Projects'
 import { Experience } from './pages/Experience'
+import { Footer } from './molecules/Footer'
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 
@@ -35,9 +36,9 @@ const App = () => {
       
       {/* Content Layer */}
       <div className="relative z-10 w-full flex flex-col">
-        <div className="sticky top-1 z-50 flex justify-center w-full px-4">
+        {/* <div className="sticky top-1 z-50 flex justify-center w-full px-4">
           <Navbar />
-        </div>
+        </div> */}
         <div className='w-full'>
           <div id="/" className="relative z-[1]">
             <Landing />
@@ -50,6 +51,10 @@ const App = () => {
           </div>
           <div id="experience" className="relative z-[2]">
             <Experience />
+          </div>
+          {/* Footer Component */}
+          <div className="relative z-[1] w-full mt-auto">
+            <Footer />
           </div>
         </div>
       </div>

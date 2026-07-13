@@ -13,11 +13,6 @@ export const Profile = () => {
           alt="Profile Photo"
           className="hidden sm:block w-full h-full object-cover object-top rounded-xl"
         />
-        <img
-          src="/profilePhoto_md.png"
-          alt="Profile Photo"
-          className="sm:hidden block w-full h-48 object-cover object-top rounded-xl"
-        />
       </div>
 
       {/* ── Info Cards ── */}

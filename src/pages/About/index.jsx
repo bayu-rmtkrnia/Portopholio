@@ -5,6 +5,8 @@ import { Profile } from '../../molecules/Profile';
 
 gsap.registerPlugin(ScrollTrigger);
 
+import { ObjectContainer } from '../../molecules/Floating3DObject/ObjectContainer';
+
 export const About = () => {
   const sectionRef = useRef(null);
   const titleContainerRef = useRef(null);
@@ -60,44 +62,50 @@ export const About = () => {
           yPercent: 120,
           scaleY: 2.3,
           scaleX: 0.7,
-          transformOrigin: '50% 0%'
         },
         {
+          duration: 1,
           opacity: 1,
           yPercent: 0,
           scaleY: 1,
           scaleX: 1,
-          stagger: 0.05,
-          duration: 2,
+          stagger: 0.03,
           ease: 'back.inOut(2)',
-          immediateRender: false // Penting agar scrub bisa reverse dengan benar
         }
       );
 
-      // Jeda sebentar
-      tl.to({}, { duration: 0.5 });
+      // 2. Putar seluruh kata (merotasi container judulnya)
+      tl.to(
+        titleContainerRef.current,
+        {
+          rotation: -90,
+          duration: 1,
+          ease: 'power2.inOut',
+        },
+        '+=0.5' // Jeda sedikit setelah animasi ScrollFloat selesai
+      );
 
-      // 2 & 3. Rotasi + Profile masuk bersamaan
-      tl.to(titleContainerRef.current, {
-        rotation: 90,
-        x: () => -window.innerWidth / 2 + (window.innerWidth < 768 ? 40 : 80),
-        duration: 3,
-        ease: 'power2.inOut'
-      }, 'moveIn');
-
-      tl.fromTo(profileContainerRef.current, {
-        x: '100vw',
-        opacity: 0,
-      }, {
-        x: 0,
-        opacity: 1,
-        duration: 3,
-        ease: 'power2.inOut',
-        immediateRender: false
-      }, 'moveIn');
-
-      // Jeda di akhir agar ada waktu membaca Profile
-      tl.to({}, { duration: 2 });
+      // 3. Masukkan Profile Component dari kanan layar sambil text bergeser ke kiri
+      tl.to(
+        titleContainerRef.current,
+        {
+          x: '-25vw', // Geser judul ke kiri agar memberi ruang (sesuaikan dengan lebar Profile)
+          duration: 1.5,
+          ease: 'power2.out',
+        },
+        '+=0.2'
+      );
+      
+      tl.to(
+        profileContainerRef.current,
+        {
+          x: '0', // Masuk ke posisi normal
+          opacity: 1,
+          duration: 1.5,
+          ease: 'power2.out',
+        },
+        '<' // Dijalankan berbarengan dengan pergeseran teks
+      );
 
     }, sectionRef); // Scope ke sectionRef
 
@@ -106,11 +114,16 @@ export const About = () => {
 
   return (
     <section 
+      id="about" 
       ref={sectionRef} 
-      className="w-full h-screen flex items-center justify-center relative px-4"
+      className="w-full h-screen flex flex-row items-center justify-center bg-white relative shadow-[0px_-32px_80px_rgba(52,76,183,0.1)]"
     >
+      {/* 3D Objects */}
+      <ObjectContainer index={0} sectionId="about" />
+      <ObjectContainer index={1} sectionId="about" />
+      <ObjectContainer index={2} sectionId="about" />
       
-      {/* Profile Container - Center */}
+      {/* Container utama agar elemen bisa ditata secara berderet */}
       <div 
         ref={profileContainerRef} 
         className="absolute z-10 w-full sm:w-[85%] md:w-[70%] lg:w-[60%] xl:w-1/2 flex items-center justify-center opacity-0"

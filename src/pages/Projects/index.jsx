@@ -47,6 +47,8 @@ const PROJECT_ITEMS = [
   }
 ];
 
+import { ObjectContainer } from '../../molecules/Floating3DObject/ObjectContainer';
+
 export const Projects = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const descRef = useRef(null);
@@ -63,8 +65,13 @@ export const Projects = () => {
   }, [activeIndex]);
 
   return (
-    <section className="w-full min-h-screen flex items-center justify-center py-12 sm:py-16 px-4 sm:px-8 relative">
+    <section id="projects" className="w-full min-h-screen flex items-center justify-center py-12 sm:py-16 px-4 sm:px-8 relative">
       
+      {/* 3D Objects */}
+      <ObjectContainer index={0} sectionId="projects" />
+      <ObjectContainer index={1} sectionId="projects" />
+      <ObjectContainer index={2} sectionId="projects" />
+
       {/* Wrapper: kolom di mobile, baris di desktop */}
       <div className="w-full sm:w-[92%] md:w-[88%] lg:w-[85%] xl:w-[75%] flex flex-col md:flex-row items-center justify-center gap-8 lg:gap-12">
         
@@ -99,11 +106,21 @@ export const Projects = () => {
         </div>
 
         {/* Bagian Kanan: Carousel — rasio 5:4 */}
-        <div className="flex items-center justify-center shrink-0 w-full max-w-xs sm:max-w-sm lg:max-w-md">
+        <div className="hidden md:flex items-center justify-center shrink-0 w-full overflow-x-hidden lg:max-w-2xl">
           <Carousel 
             items={PROJECT_ITEMS} 
-            baseWidth={340} 
-            baseHeight={272}
+            baseWidth={680} 
+            baseHeight={420}
+            loop={true}
+            onActiveIndexChange={setActiveIndex}
+          />
+        </div>
+
+        <div className="md:hidden flex items-center justify-center shrink-0 w-full max-w-sm">
+          <Carousel 
+            items={PROJECT_ITEMS} 
+            baseWidth={400} 
+            baseHeight={200}
             loop={true}
             onActiveIndexChange={setActiveIndex}
           />
@@ -111,10 +128,10 @@ export const Projects = () => {
 
          <div className="block md:hidden w-8/10 h-[160px] sm:h-[180px] mt-2 overflow-hidden">
             <div ref={descRef} className="flex flex-col items-center lg:items-start justify-start">
-              <h3 className="font-bold text-lg sm:text-xl md:text-2xl text-[#344CB7] mb-2">
+              <h3 className="font-bold text-center text-lg sm:text-xl md:text-2xl text-[#344CB7] mb-2">
                 {PROJECT_ITEMS[activeIndex].title}
               </h3>
-              <p className="font-medium text-xs sm:text-sm md:text-sm text-[#344CB7]/80 leading-relaxed text-center lg:text-left">
+              <p className="font-medium text-center text-xs sm:text-sm md:text-sm text-[#344CB7]/80 leading-relaxed text-center lg:text-left">
                 {PROJECT_ITEMS[activeIndex].description}
               </p>
             </div>

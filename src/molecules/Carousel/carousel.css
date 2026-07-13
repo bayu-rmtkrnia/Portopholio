@@ -1,4 +1,8 @@
 .carousel-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(87, 123, 193, 0.3);
@@ -8,7 +12,7 @@
   --p-distance: 12px;
   background: rgba(233, 233, 233, 0.25);
   backdrop-filter: blur(8px);
-  box-shadow: 0 4px 24px rgba(87, 123, 193, 0.2);
+  touch-action: pan-y;
 }
 
 .carousel-track {
@@ -22,7 +26,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  border: 1px solid rgba(87, 123, 193, 0.25);
+  border: 1px solid rgba(87, 123, 193, 0.1);
   border-radius: calc(var(--outer-r) - var(--p-distance));
   background-color: #1B1722;
   overflow: hidden;
@@ -34,14 +38,14 @@
 }
 
 .carousel-container.round {
-  border: 1px solid rgba(87, 123, 193, 0.3);
+  border: 1px solid rgba(87, 123, 193, 0.1);
 }
 
 .carousel-item.round {
   background-color: #1B1722;
   position: relative;
   bottom: 0.1em;
-  border: 1px solid rgba(87, 123, 193, 0.25);
+  border: 1px solid rgba(87, 123, 193, 0.);
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -129,7 +133,7 @@
   appearance: none;
   border-radius: 50%;
   cursor: pointer;
-  transition: background-color 150ms;
+  transition: background-color 500ms;
 }
 
 .carousel-indicator:focus-visible {

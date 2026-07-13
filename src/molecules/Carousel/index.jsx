@@ -6,9 +6,9 @@ import './Carousel.css';
 const DEFAULT_ITEMS = [];
 
 const DRAG_BUFFER = 0;
-const VELOCITY_THRESHOLD = 500;
+const VELOCITY_THRESHOLD = 50;
 const GAP = 16;
-const SPRING_OPTIONS = { type: 'spring', stiffness: 300, damping: 30 };
+const SPRING_OPTIONS = { type: 'spring', stiffness: 100, damping: 25 };
 
 function CarouselItem({ item, index, itemWidth, itemHeight, round, trackItemOffset, x, transition }) {
   const range = [-(index + 1) * trackItemOffset, -index * trackItemOffset, -(index - 1) * trackItemOffset];
@@ -42,11 +42,11 @@ function CarouselItem({ item, index, itemWidth, itemHeight, round, trackItemOffs
 export const Carousel = ({
   items = DEFAULT_ITEMS,
   baseWidth = 400,
-  baseHeight = 420,
-  autoplay = false,
+  baseHeight = 200,
+  autoplay = true,
   autoplayDelay = 3000,
   pauseOnHover = false,
-  loop = false,
+  loop = true,
   round = false,
   onActiveIndexChange
 }) => {
@@ -67,6 +67,42 @@ export const Carousel = ({
   const [isAnimating, setIsAnimating] = useState(false);
 
   const containerRef = useRef(null);
+
+  // Mencegah halaman scroll vertikal saat user drag carousel secara horizontal
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    let startX = 0;
+    let startY = 0;
+    let isDragging = false;
+
+    const handleTouchStart = (e) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      isDragging = false;
+    };
+
+    const handleTouchMove = (e) => {
+      const deltaX = Math.abs(e.touches[0].clientX - startX);
+      const deltaY = Math.abs(e.touches[0].clientY - startY);
+
+      // Jika gerakan horizontal lebih dominan, blokir scroll vertikal
+      if (deltaX > deltaY && deltaX > 5) {
+        isDragging = true;
+        e.preventDefault();
+      }
+    };
+
+    container.addEventListener('touchstart', handleTouchStart, { passive: true });
+    container.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+    return () => {
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, []);
+
   useEffect(() => {
     if (pauseOnHover && containerRef.current) {
       const container = containerRef.current;

@@ -1,5 +1,6 @@
 import { Accordion } from "../../molecules/Accordion"
 import { ScrollFloat } from "../../molecules/ScrollFloat"
+import { ObjectContainer } from "../../molecules/Floating3DObject/ObjectContainer"
 
 export const Experience = () => {
   const experience = [
@@ -26,10 +27,15 @@ export const Experience = () => {
   ]
 
   return (
-    <section className="w-full min-h-screen flex items-center justify-center py-12 sm:py-16 px-4 sm:px-8">
+    <section id="experience" className="w-full min-h-screen flex items-center justify-center py-12 sm:py-16 px-4 sm:px-8 relative">
+      
+      {/* 3D Objects */}
+      <ObjectContainer index={0} sectionId="experience" />
+      <ObjectContainer index={1} sectionId="experience" />
+      <ObjectContainer index={2} sectionId="experience" />
 
       {/* Content area — responsif di semua ukuran layar */}
-      <div className="w-full sm:w-[92%] md:w-[80%] flex flex-col items-center justify-center gap-6">
+      <div className="w-full sm:w-[90%] md:w-full flex flex-col lg:flex-row items-center justify-center gap-4 ">
 
         <ScrollFloat
           animationDuration={1}
