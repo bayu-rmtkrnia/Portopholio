@@ -1,6 +1,35 @@
-import { useRef } from 'react';
+import { Component, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Octahedron, Icosahedron, Tetrahedron, Dodecahedron } from '@react-three/drei';
+
+// ─── WebGL support check ────────────────────────────────────────────────────
+function isWebGLSupported() {
+  try {
+    const canvas = document.createElement('canvas');
+    return !!(
+      window.WebGLRenderingContext &&
+      (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
+    );
+  } catch {
+    return false;
+  }
+}
+
+// ─── Error Boundary — mencegah crash jika Three.js gagal ────────────────────
+class ThreeErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  render() {
+    if (this.state.hasError) return null; // silent fallback
+    return this.props.children;
+  }
+}
+
 
 /**
  * Rotating 3D Shape dengan arah rotasi dan parameter yang bisa dikonfigurasi
@@ -86,27 +115,32 @@ export const Floating3DObject = ({
   clearcoat = 1.0,
   cameraZ = 2.5,
 }) => {
-  return (
-    <div className="w-full h-full">
-      <Canvas camera={{ position: [0, 0, cameraZ], fov: 45 }}>
-        {/* Multi-light setup — offline safe, no external HDR fetch */}
-        <ambientLight intensity={0.4} />
-        <directionalLight position={[5, 8, 5]} intensity={2.0} />
-        <directionalLight position={[-5, -5, -5]} intensity={0.6} color="#a8c4f0" />
-        <pointLight position={[3, 3, 3]} intensity={1.2} color="#ffffff" />
-        <pointLight position={[-3, -2, 4]} intensity={0.8} color="#5599ff" />
+  // Jika WebGL tidak didukung device, skip render — tidak ada broken icon
+  if (!isWebGLSupported()) return null;
 
-        <RotatingShape
-          color={color}
-          speed={speed}
-          rotationAxis={rotationAxis}
-          shapeType={shapeType}
-          shapeSize={shapeSize}
-          metalness={metalness}
-          roughness={roughness}
-          clearcoat={clearcoat}
-        />
-      </Canvas>
-    </div>
+  return (
+    <ThreeErrorBoundary>
+      <div className="w-full h-full">
+        <Canvas camera={{ position: [0, 0, cameraZ], fov: 45 }}>
+          {/* Multi-light setup — offline safe, no external HDR fetch */}
+          <ambientLight intensity={0.4} />
+          <directionalLight position={[5, 8, 5]} intensity={2.0} />
+          <directionalLight position={[-5, -5, -5]} intensity={0.6} color="#a8c4f0" />
+          <pointLight position={[3, 3, 3]} intensity={1.2} color="#ffffff" />
+          <pointLight position={[-3, -2, 4]} intensity={0.8} color="#5599ff" />
+
+          <RotatingShape
+            color={color}
+            speed={speed}
+            rotationAxis={rotationAxis}
+            shapeType={shapeType}
+            shapeSize={shapeSize}
+            metalness={metalness}
+            roughness={roughness}
+            clearcoat={clearcoat}
+          />
+        </Canvas>
+      </div>
+    </ThreeErrorBoundary>
   );
 };
