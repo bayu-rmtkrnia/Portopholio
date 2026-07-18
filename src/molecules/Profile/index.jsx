@@ -3,6 +3,13 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FiMail, FiInstagram, FiLinkedin, FiGithub } from 'react-icons/fi';
 
+import figmaLogo from '../../assets/toolsIcon/figma_Logo.png';
+import affinityLogo from '../../assets/toolsIcon/Affinity_Logo.png';
+import reactLogo from '../../assets/toolsIcon/react.svg';
+import nextLogo from '../../assets/toolsIcon/next-js.svg';
+import tailwindLogo from '../../assets/toolsIcon/Tailwind_CSS_Logo.png';
+import neonLogo from '../../assets/toolsIcon/Neon_Logo.png';
+
 gsap.registerPlugin(ScrollTrigger);
 
 export const Profile = () => {
@@ -66,12 +73,12 @@ export const Profile = () => {
           <div className="profile-card w-1/2 min-w-0 rounded-lg border border-white/40 bg-[#e9e9e9]/25 shadow-md shadow-[#577BC1]/55 backdrop-blur-xs p-2.5 lg:p-3 flex flex-col" style={{ opacity: 0 }}>
             <h2 className="font-bold text-sm lg:text-base text-[#344CB7] mb-1.5 shrink-0">Tools</h2>
             <ul className="flex-1 flex flex-wrap gap-1.5 sm:gap-2 items-center justify-center">
-              <li><img src="./src/assets/toolsIcon/figma_Logo.png"        alt="Figma"     className="h-5 sm:h-6 lg:h-7" /></li>
-              <li><img src="./src/assets/toolsIcon/Affinity_Logo.png"     alt="Affinity"  className="h-5 sm:h-6 lg:h-7 rounded-md" /></li>
-              <li><img src="./src/assets/toolsIcon/react.svg"             alt="React"     className="h-5 sm:h-6 lg:h-7" /></li>
-              <li><img src="./src/assets/toolsIcon/next-js.svg"           alt="Next.js"   className="h-5 sm:h-6 lg:h-7" /></li>
-              <li><img src="./src/assets/toolsIcon/Tailwind_CSS_Logo.png" alt="Tailwind"  className="h-5 sm:h-6 lg:h-7" /></li>
-              <li><img src="./src/assets/toolsIcon/Neon_Logo.png"         alt="Neon"      className="h-5 sm:h-6 lg:h-7 rounded-md" /></li>
+              <li><img src={figmaLogo}    alt="Figma"     className="h-5 sm:h-6 lg:h-7" /></li>
+              <li><img src={affinityLogo} alt="Affinity"  className="h-5 sm:h-6 lg:h-7 rounded-md" /></li>
+              <li><img src={reactLogo}    alt="React"     className="h-5 sm:h-6 lg:h-7" /></li>
+              <li><img src={nextLogo}     alt="Next.js"   className="h-5 sm:h-6 lg:h-7" /></li>
+              <li><img src={tailwindLogo} alt="Tailwind"  className="h-5 sm:h-6 lg:h-7" /></li>
+              <li><img src={neonLogo}     alt="Neon"      className="h-5 sm:h-6 lg:h-7 rounded-md" /></li>
             </ul>
           </div>
 
