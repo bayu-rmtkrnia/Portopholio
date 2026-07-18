@@ -1,10 +1,25 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Floating3DObject } from './index';
+import { CSSFloatingShape } from './CSSFloatingShape';
 
 // Daftarkan plugin ScrollTrigger ke GSAP
 gsap.registerPlugin(ScrollTrigger);
+
+// ─── Hook: deteksi layar mobile (< 768px) ────────────────────────────────────
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' ? window.innerWidth < breakpoint : false
+  );
+  useEffect(() => {
+    const handler = () => setIsMobile(window.innerWidth < breakpoint);
+    window.addEventListener('resize', handler);
+    return () => window.removeEventListener('resize', handler);
+  }, [breakpoint]);
+  return isMobile;
+}
+
 
 /**
  * Konfigurasi preset untuk setiap 3D shape di halaman Landing.
@@ -94,6 +109,7 @@ const SHAPE_CONFIGS = [
 export const ObjectContainer = ({ index, sectionId }) => {
   const config = SHAPE_CONFIGS[index];
   const containerRef = useRef(null);
+  const isMobile = useIsMobile(768); // < 768px → pakai CSS shape
 
   useLayoutEffect(() => {
     const el = containerRef.current;
@@ -139,28 +155,23 @@ export const ObjectContainer = ({ index, sectionId }) => {
     });
 
     return () => ctx.revert();
-  }, [index, sectionId]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [index, sectionId, isMobile]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!config) return null;
 
   const { position, shape } = config;
 
   // Ukuran responsif: kecil di mobile, normal di tablet/desktop
-  // Gunakan CSS custom property + @media di style tag tidak memungkinkan,
-  // jadi kita pakai pendekatan: set style width/height ke mobileSize px,
-  // lalu di breakpoint sm ke atas override dengan CSS variable lewat Tailwind class.
   const mobileSize = position.mobileSize ?? position.size;
 
   const posStyle = {
-    // Gunakan CSS variable agar bisa di-override via Tailwind responsive
     width: `var(--shape-size, ${mobileSize}px)`,
     height: `var(--shape-size, ${mobileSize}px)`,
-    // sm: override via inline Tailwind tidak bisa, jadi kita set keduanya lewat custom prop
     '--shape-size-mobile': `${mobileSize}px`,
     '--shape-size-desktop': `${position.size}px`,
     top: position.top,
     opacity: 0,
-    ...(position.left !== undefined ? { left: position.left } : {}),
+    ...(position.left  !== undefined ? { left:  position.left  } : {}),
     ...(position.right !== undefined ? { right: position.right } : {}),
   };
 
@@ -170,7 +181,10 @@ export const ObjectContainer = ({ index, sectionId }) => {
       className="absolute z-0 pointer-events-none shape-responsive"
       style={posStyle}
     >
-      <Floating3DObject {...shape} />
+      {isMobile
+        ? <CSSFloatingShape index={index} size="100%" />
+        : <Floating3DObject {...shape} />
+      }
     </div>
   );
 };
