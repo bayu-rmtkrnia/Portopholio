@@ -18,18 +18,19 @@ export const Landing = () => {
   }, []);
 
   return (
-    <section id="landing" className="w-full h-screen flex items-center justify-center relative pb-16">
-      {/* 3D Objects (Max 3) */}
+    <section id="landing" className="w-full min-h-screen flex items-center justify-center relative pb-16 overflow-visible">
+      {/* 3D Objects — 4 shapes dengan posisi & arah rotasi unik */}
       <ObjectContainer index={0} sectionId="landing" />
       <ObjectContainer index={1} sectionId="landing" />
       <ObjectContainer index={2} sectionId="landing" />
+      <ObjectContainer index={3} sectionId="landing" />
 
       {/* 1:2:1 content area */}
-      <div className="w-[90%] h-auto sm:w-3/4 md:w-1/2 md:h-1/2 flex flex-col items-center justify-center gap-3 text-center z-10">
+      <div className="w-[90%] h-full sm:w-3/4 md:w-1/2 flex flex-col items-center justify-center gap-3 text-center z-10">
         <SplitText 
           text="Hi, I'm Bayu"
           tag="h1"
-          className="font-bold text-[5.5rem] md:text-8xl [font-feature-settings:'ss01'] leading-tight pb-1"
+          className="font-bold text-[5.5rem] md:text-8xl [font-feature-settings:'ss01'] leading-tight"
           charClass="text-transparent bg-clip-text bg-linear-to-r from-[#344CB7] via-[#577BC1] to-[#f1f1f1] bg-fixed"
           delay={50}
           duration={1.25}

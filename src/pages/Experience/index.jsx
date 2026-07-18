@@ -1,5 +1,5 @@
 import { Accordion } from "../../molecules/Accordion"
-import { ScrollFloat } from "../../molecules/ScrollFloat"
+import { SectionHeading } from '../../molecules/SectionHeading'
 import { ObjectContainer } from "../../molecules/Floating3DObject/ObjectContainer"
 
 export const Experience = () => {
@@ -27,30 +27,28 @@ export const Experience = () => {
   ]
 
   return (
-    <section id="experience" className="w-full min-h-screen flex items-center justify-center py-12 sm:py-16 px-4 sm:px-8 relative">
+    <section id="experience" className="w-full min-h-screen flex items-center justify-center py-12 sm:py-16 px-4 sm:px-8 relative overflow-hidden">
       
       {/* 3D Objects */}
-      <ObjectContainer index={0} sectionId="experience" />
+      <ObjectContainer index={3} sectionId="experience" />
       <ObjectContainer index={1} sectionId="experience" />
-      <ObjectContainer index={2} sectionId="experience" />
+      <ObjectContainer index={0} sectionId="experience" />
 
       {/* Content area — responsif di semua ukuran layar */}
-      <div className="w-full sm:w-[90%] md:w-full flex flex-col lg:flex-row items-center justify-center gap-4 ">
+      <div className="w-[100%] md:w-[80%] flex flex-col lg:flex-row-reverse items-center justify-center gap-6 min-w-0">
 
-        <ScrollFloat
-          animationDuration={1}
-          ease="back.inOut(2)"
-          scrollStart="top bottom-=10%" 
-          scrollEnd="center center"
-          stagger={0.03}
-          textClassName="text-transparent bg-clip-text bg-linear-to-r from-[#344CB7] to-[#577BC1] [font-feature-settings:'ss01']"
-          charClass="text-transparent bg-clip-text bg-linear-to-r from-[#344CB7] to-[#577BC1] bg-fixed"
-        >
-          Experience
-        </ScrollFloat>
+        {/* Heading wrapper — shrink jika perlu, tidak overflow ke kanan */}
+        <div className="shrink-0 flex justify-center lg:justify-end min-w-0 max-w-full pr-4">
+          <SectionHeading
+            text="Experience"
+            tag="h2"
+            className="[font-feature-settings:'ss01'] font-bold text-5xl sm:text-6xl md:text-7xl text-center lg:text-right"
+            charClassName="text-transparent bg-clip-text bg-linear-to-r from-[#344CB7] to-[#577BC1] bg-fixed"
+          />
+        </div>
 
         {/* Accordion fills remaining height */}
-        <div className="w-full flex-1 min-h-0 overflow-hidden">
+        <div className="w-full flex-1 min-h-0 min-w-0 overflow-hidden">
           <Accordion exps={experience} />
         </div>
 

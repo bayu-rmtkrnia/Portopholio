@@ -40,7 +40,7 @@ const App = () => {
           <Navbar />
         </div> */}
         <div className='w-full'>
-          <div id="/" className="relative z-[1]">
+          <div id="/" className="relative z-[1] overflow-visible">
             <Landing />
           </div>
           <div id="about" className="relative z-[4]">

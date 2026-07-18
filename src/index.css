@@ -22,3 +22,16 @@ body {
 a {
   color: #577BC1;
 }
+
+/* 3D shape: ukuran responsif via CSS custom property */
+.shape-responsive {
+  --shape-size: var(--shape-size-mobile);
+  width: var(--shape-size) !important;
+  height: var(--shape-size) !important;
+}
+
+@media (min-width: 640px) {
+  .shape-responsive {
+    --shape-size: var(--shape-size-desktop);
+  }
+}

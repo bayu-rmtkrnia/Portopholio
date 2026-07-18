@@ -5,7 +5,7 @@ export const AccordCard = ({data}) => {
 
   return(
     <div className={"w-full p-4 flex flex-col justify-center rounded-lg border-[#ffff] bg-[#e9e9e9]/25 shadow-md shadow-[#577BC1]/55 backdrop-blur-xs border items-left cursor-pointer text-[#344CB7] transition-full duration-500 ease-in-out " + (isOpen ? " h-full" : " h-24 delay-200")} onClick = {() => {setIsOpen(!isOpen)}}>
-      <h1 className="font-bold text-lg text-wrap">{data.title}</h1>
+      <h1 className="font-bold text-base lg:text-lg text-wrap">{data.title}</h1>
       <h2 className="text-wrap">{data.time}</h2>
       
 
